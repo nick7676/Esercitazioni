@@ -1,15 +1,35 @@
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+import java.util.Scanner;
+
 public class Main {
     public static void main(String[] args) {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            System.out.println("i = " + i);
+        Scanner scan = new Scanner(System.in);
+
+        GestioneGarage garage = new GestioneGarage();
+
+        int sc = 0;
+
+        while (true) {
+
+            System.out.println("| M E N U |\nBenvenuto nella gestione garage!\n Premere [0] per uscire\n Premere [1] per aggiungere un veicolo \n Premere [2] per stampare i veicoli aggiunti al garage\n Premere [3] per rimuovere un veicolo\n Premere [4] per visualizzare quante 4 porte sono presenti nel garage");
+            sc = scan.nextInt();
+            scan.nextLine();
+
+            if (sc == 0) {
+                System.out.println("Programma in chiusura...");
+                System.exit(0);
+            } else if (sc == 1) {
+                garage.aggiuntaVeicolo();
+            } else if (sc == 2) {
+                garage.stampaVeicoli();
+            } else if (sc == 3) {
+                garage.rimozioneVeicolo();
+            } else if (sc == 4) {
+                garage.conteggioPorte();
+            } else {
+                System.out.println("Input non valido...\nRitorno al menu...");
+            }
         }
+
     }
 }
