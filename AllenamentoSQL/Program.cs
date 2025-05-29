@@ -19,6 +19,7 @@ namespace AllenamentoSQL
                 Console.WriteLine(" (2) Per visualizzare la lista");
                 Console.WriteLine(" (3) Per eliminare un prodotto");
                 Console.WriteLine(" (4) Per modificare un prodotto");
+                Console.WriteLine(" (5) Per eseguire una ricerca tramite nome");
                 int sc = input.intInput();
 
                 switch (sc)
@@ -38,6 +39,9 @@ namespace AllenamentoSQL
                         break;
                     case 4:
                         sqlManager.ProductModify();
+                        break;
+                    case 5:
+                        sqlManager.ProductNameResearh();
                         break;
                     default:
                         Console.WriteLine("Opzione non valida. Riprova.");

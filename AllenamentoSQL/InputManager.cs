@@ -46,14 +46,14 @@ namespace BookLibrary
             }
         }
 
-        public string stringInput()
+        public string stringInputNoEmptyString()
         {
             string input = Console.ReadLine();
 
             if(input == "")
             {
                 inputErrorMessage();
-                return stringInput();
+                return stringInputNoEmptyString();
             }
             else
             {

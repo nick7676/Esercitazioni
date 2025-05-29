@@ -25,11 +25,11 @@ namespace AllenamentoSQL
                 using var cmd = new SqlCommand(query, conn);
 
                 Console.WriteLine("Nome: ");
-                string nome = input.stringInput();
+                string nome = input.stringInputNoEmptyString();
                 cmd.Parameters.AddWithValue("@Nome", nome);
 
                 Console.WriteLine("Descrizione: ");
-                string descrizione = input.stringInput();
+                string descrizione = input.stringInputNoEmptyString();
                 cmd.Parameters.AddWithValue("@Descrizione", descrizione);
 
                 Console.WriteLine("Quantità: ");
@@ -138,9 +138,9 @@ namespace AllenamentoSQL
                     {
                         cmd.Parameters.AddWithValue("@Id", input.intInput());
                         Console.WriteLine("Nuovo Nome: ");
-                        cmd.Parameters.AddWithValue("@Nome", input.stringInput());
+                        cmd.Parameters.AddWithValue("@Nome", input.stringInputNoEmptyString());
                         Console.WriteLine("Nuova Descrizione: ");
-                        cmd.Parameters.AddWithValue("@Descrizione", input.stringInput());
+                        cmd.Parameters.AddWithValue("@Descrizione", input.stringInputNoEmptyString());
                         Console.WriteLine("Nuova Quantità: ");
                         cmd.Parameters.AddWithValue("@Quantita", input.intInput());
                         Console.WriteLine("Nuovo Prezzo: ");
@@ -166,6 +166,46 @@ namespace AllenamentoSQL
             catch (FormatException ex)
             {
                 Console.WriteLine("Errore di formato nei dati inseriti: " + ex.Message);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Si è verificato un errore: " + ex.Message);
+            }
+
+        }
+
+        public void ProductNameResearh()
+        {
+            try
+            {
+                using var conn = new SqlConnection(_connectionString);
+                conn.Open();
+
+                InputManager input = new InputManager();
+
+                Console.WriteLine("Inserisci il nome del prodotto da cercare: ");
+                string nome = input.stringInputNoEmptyString();
+
+                string query = "SELECT * FROM prodotti WHERE Nome LIKE @Nome";
+                using var cmd = new SqlCommand(query, conn);
+
+                cmd.Parameters.AddWithValue("@Nome", "%" + nome + "%");
+                using var reader = cmd.ExecuteReader();
+                bool found = false;
+
+                while (reader.Read())
+                {
+                    Console.WriteLine($"ID: {reader["Id"]}, Nome: {reader["Nome"]}, Descrizione: {reader["Descrizione"]}, Quantità: {reader["Quantita"]}, Prezzo: {reader["Prezzo"]}");
+                    found = true;
+                }
+                if (!found)
+                {
+                    Console.WriteLine("Nessun prodotto trovato con il nome specificato.");
+                }
+            }
+            catch (SqlException ex)
+            {
+                Console.WriteLine("Errore SQL: " + ex.Message);
             }
             catch (Exception ex)
             {
