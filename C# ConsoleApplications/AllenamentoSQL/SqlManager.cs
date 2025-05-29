@@ -10,6 +10,7 @@ namespace AllenamentoSQL
 {
     internal class SqlManager
     {
+
         private readonly string _connectionString = "Server=DESKTOP-2GJJE49\\SQLEXPRESS;Database=magazzino;Trusted_Connection=True; Encrypt=False;";
 
         public void ProductADD()
